@@ -12,8 +12,8 @@ const firebaseConfig = {
   projectId: "lost-found-app-8ecc5",
   storageBucket: "lost-found-app-8ecc5.firebasestorage.app",
   messagingSenderId: "6771429733",
-  appId: "1:6771429733:web:6516ced9f715563277518c",
-  measurementId: "G-HMS7JLDE3V"
+  appId: "1:6771429733:web:4c75953ecd3eebae77518c",
+  measurementId: "G-2YK0VNFWFW"
 };
 
 // Initialize Firebase
