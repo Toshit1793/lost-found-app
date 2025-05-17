@@ -1,21 +1,16 @@
-// Import the functions you need from the SDKs you need
+// client/src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth } from "firebase/auth";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyC2oWnKMR4HdlV-jl7GRyCbCEzvkkPtUK0",
   authDomain: "lost-found-app-8ecc5.firebaseapp.com",
   projectId: "lost-found-app-8ecc5",
-  storageBucket: "lost-found-app-8ecc5.firebasestorage.app",
+  storageBucket: "lost-found-app-8ecc5.appspot.com", // ✅ fix here: it should be .appspot.com
   messagingSenderId: "6771429733",
-  appId: "1:6771429733:web:4c75953ecd3eebae77518c",
-  measurementId: "G-2YK0VNFWFW"
+  appId: "1:6771429733:web:6516ced9f715563277518c",
+  measurementId: "G-HMS7JLDE3V"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const auth = getAuth(app);
