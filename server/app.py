@@ -9,8 +9,8 @@ CORS(app)  # Allows your frontend (on Vercel) to access this API
 # 🌐 Cloudinary Configuration (you can later use environment variables here)
 cloudinary.config(
     cloud_name="dcznswrer",       # replace with your Cloudinary cloud name
-    api_key="12345678",           # replace with your Cloudinary API key
-    api_secret="abcdefgh"         # replace with your Cloudinary API secret
+    api_key="429725312244878",           # replace with your Cloudinary API key
+    api_secret="IQ-SMZUpbOA1PYCKBF1IZ9t-SGE"         # replace with your Cloudinary API secret
 )
 
 # ✅ Test route to confirm backend is live
