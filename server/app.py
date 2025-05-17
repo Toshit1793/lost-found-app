@@ -2,9 +2,9 @@ import cloudinary
 import cloudinary.uploader
 
 cloudinary.config(
-    cloud_name= dcznswrer,
-    api_key= 429725312244878,
-    api_secret= IQ-SMZUpbOA1PYCKBF1IZ9t-SGE
+  cloud_name= "dcznswrer",
+  api_key= "12345678",
+  api_secret= "abcdefgh"
 )
 
 @app.route("/api/upload_image", methods=["POST"])
