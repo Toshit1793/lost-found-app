@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { auth } from "../firebase"; // ✅ import Firebase auth
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 
 export default function Submit() {
   const [form, setForm] = useState({
@@ -7,7 +10,23 @@ export default function Submit() {
     image: null,
   });
 
+  const [user, setUser] = useState(null);
+
+  // ✅ Track logged-in user
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const handleSubmit = async () => {
+    if (!user) {
+      alert("You must be logged in to submit.");
+      return;
+    }
+
     if (!form.image) {
       alert("Please upload an image.");
       return;
@@ -16,7 +35,8 @@ export default function Submit() {
     const formData = new FormData();
     formData.append("title", form.title);
     formData.append("description", form.description);
-    formData.append("image", form.image); // actual file
+    formData.append("image", form.image);
+    formData.append("user", user.email); // ✅ Attach user's email
 
     try {
       const response = await fetch("https://lost-found-backend-tnk9.onrender.com/api/upload_image", {
@@ -35,28 +55,34 @@ export default function Submit() {
     <div style={{ padding: "1rem" }}>
       <h2>Submit Lost/Found Item</h2>
 
-      <input
-        placeholder="Item title"
-        value={form.title}
-        onChange={(e) => setForm({ ...form, title: e.target.value })}
-        style={{ display: "block", marginBottom: "1rem", width: "100%" }}
-      />
+      {!user ? (
+        <p style={{ color: "red" }}>🔒 Please log in to submit.</p>
+      ) : (
+        <>
+          <input
+            placeholder="Item title"
+            value={form.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+            style={{ display: "block", marginBottom: "1rem", width: "100%" }}
+          />
 
-      <textarea
-        placeholder="Description"
-        value={form.description}
-        onChange={(e) => setForm({ ...form, description: e.target.value })}
-        style={{ display: "block", marginBottom: "1rem", width: "100%" }}
-      />
+          <textarea
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+            style={{ display: "block", marginBottom: "1rem", width: "100%" }}
+          />
 
-      <input
-        type="file"
-        accept="image/*"
-        onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
-        style={{ display: "block", marginBottom: "1rem" }}
-      />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
+            style={{ display: "block", marginBottom: "1rem" }}
+          />
 
-      <button onClick={handleSubmit}>Submit</button>
+          <button onClick={handleSubmit}>Submit</button>
+        </>
+      )}
     </div>
   );
 }
