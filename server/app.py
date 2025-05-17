@@ -1,5 +1,11 @@
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import cloudinary
 import cloudinary.uploader
+
+
+app = Flask(__name__)
+CORS(app)  # Optional: allows your React frontend to talk to this API
 
 cloudinary.config(
   cloud_name= "dcznswrer",
@@ -7,20 +13,8 @@ cloudinary.config(
   api_secret= "abcdefgh"
 )
 
+
 @app.route("/api/upload_image", methods=["POST"])
 def upload_image():
-    file = request.files['image']
-    result = cloudinary.uploader.upload(file)
-    return jsonify({"url": result["secure_url"]})
+    return jsonify({"message": "This works!"})
 
-from flask import Flask
-from flask_cors import CORS
-from server.routes.api import api_blueprint
-
-app = Flask(__name__)
-CORS(app)
-
-app.register_blueprint(api_blueprint, url_prefix="/api")
-
-if __name__ == "__main__":
-    app.run(debug=True)
